@@ -12,7 +12,7 @@
  */
 
 import Foundation
-import OpenSSL
+import CJWKPEMOpenSSL
 
 public class RSAKey {
 
