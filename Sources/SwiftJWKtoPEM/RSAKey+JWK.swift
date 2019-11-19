@@ -13,6 +13,7 @@
 
 import Foundation
 import CJWKPEMOpenSSL
+import Crypto
 
 public class RSAKey {
 
