@@ -76,14 +76,14 @@ public class RSAKey {
             new_qi = try base64URLToBignum(qi)
         }
 
-        RSA_set_keys(rsakey, .make(optional: new_n), .make(optional: new_e), .make(optional: new_d), .make(optional: new_p), .make(optional: new_q), .make(optional: new_dp), .make(optional: new_dq), .make(optional: new_qi))
+        JWKPEM_RSA_set_keys(rsakey, .make(optional: new_n), .make(optional: new_e), .make(optional: new_d), .make(optional: new_p), .make(optional: new_q), .make(optional: new_dp), .make(optional: new_dq), .make(optional: new_qi))
         
         // assign RSAkey to EVP_Pkey to keep
         // EVP_PKEY_assign_RSA but complex macro
         // EVP_PKEY_assign((pkey),EVP_PKEY_RSA,(char *)(rsa))
         key = .init(EVP_PKEY_new())
 
-        EVP_PKEY_assign_wrapper(.make(optional: key), .make(optional: rsakey))
+        JWKPEM_EVP_PKEY_assign_wrapper(.make(optional: key), .make(optional: rsakey))
 
         guard key != nil else {
             throw JWKError.createKey

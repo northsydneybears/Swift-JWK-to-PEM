@@ -14,19 +14,17 @@
 #include <openssl/pkcs12.h>
 #include <openssl/x509v3.h>
 
-#if (OPENSSL_VERSION_NUMBER < 0x10100000L) || defined(LIBRESSL_VERSION_NUMBER)
-EVP_MD_CTX *EVP_MD_CTX_new(void);
-void EVP_MD_CTX_free(EVP_MD_CTX *ctx);
-int RSA_set0_key(RSA *r, BIGNUM *n, BIGNUM *e, BIGNUM *d);
-HMAC_CTX *HMAC_CTX_new(void);
-void HMAC_CTX_free(HMAC_CTX *ctx);
-#endif
+EVP_MD_CTX *JWKPEM_EVP_MD_CTX_new(void);
+void JWKPEM_EVP_MD_CTX_free(EVP_MD_CTX *ctx);
+int JWKPEM_RSA_set0_key(RSA *r, BIGNUM *n, BIGNUM *e, BIGNUM *d);
+HMAC_CTX *JWKPEM_HMAC_CTX_new(void);
+void JWKPEM_HMAC_CTX_free(HMAC_CTX *ctx);
 
 // This wrapper allows for a common call for both versions of OpenSSL when setting other keys for RSA.
-static inline void RSA_set_keys(RSA *rsakey, BIGNUM *n, BIGNUM *e, BIGNUM *d, BIGNUM *p, BIGNUM *q, BIGNUM *dmp1, BIGNUM *dmq1, BIGNUM *iqmp) {
+static inline void JWKPEM_RSA_set_keys(RSA *rsakey, BIGNUM *n, BIGNUM *e, BIGNUM *d, BIGNUM *p, BIGNUM *q, BIGNUM *dmp1, BIGNUM *dmq1, BIGNUM *iqmp) {
 
     #if (OPENSSL_VERSION_NUMBER >= 0x10100000L)
-        RSA_set0_key(rsakey, n, e, d);
+        JWKPEM_RSA_set0_key(rsakey, n, e, d);
         RSA_set0_factors(rsakey, p, q);
         RSA_set0_crt_params(rsakey, dmp1, dmq1, iqmp);
     #else
@@ -41,7 +39,7 @@ static inline void RSA_set_keys(RSA *rsakey, BIGNUM *n, BIGNUM *e, BIGNUM *d, BI
     #endif
 }
 
-static inline void EVP_PKEY_assign_wrapper(EVP_PKEY *pkey, RSA *rsakey) {
+static inline void JWKPEM_EVP_PKEY_assign_wrapper(EVP_PKEY *pkey, RSA *rsakey) {
 
     EVP_PKEY_assign(pkey, EVP_PKEY_RSA, rsakey);
 }
