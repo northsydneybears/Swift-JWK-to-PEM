@@ -188,10 +188,4 @@ lU7tI2NCoSxFONjF+kGxO2S8mbBzADTBXaAE7clHorp6nRj8rIxHzD0V3+W8mp2W
         }
     }
     
-    static var allTests = [
-        ("testJWKtoPEM_OpenSSLGenerated", testJWKtoPEM_OpenSSLGenerated),
-        ("testJWKFieldstoPEM_opensslGenerated", testJWKFieldstoPEM_opensslGenerated),
-        ("testJWKtoPEM_appIDGenerated", testJWKtoPEM_appIDGenerated),
-        ("testJWKFieldstoPEM_appIDGenerated", testJWKFieldstoPEM_appIDGenerated),
-        ]
 }
